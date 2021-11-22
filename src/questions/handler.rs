@@ -43,6 +43,13 @@ pub fn find_by_kind(kind: String, connection: DbConn) -> Result<Json<Vec<Questio
         .map_err(|error| error_status(error))
 }
 
+#[get("/anatomy")]
+pub fn get_anatomy(connection: DbConn) -> Result<Json<Vec<Question>>, Status> {
+    questions::repository::get_anatomy(&connection)
+        .map(|question| Json(question))
+        .map_err(|error| error_status(error))
+}
+
 #[get("/random")]
 pub fn rand(connection: DbConn) -> Result<Json<Question>, Status> {
     questions::repository::rand(&connection)
